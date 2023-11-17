@@ -16,16 +16,16 @@ module.exports.getUser = (req, res) => {
       if (!user) {
         return res.status(400).send({ message: "User not found!" });
       }
-      res.send({ data: user });
+      res.send({ data: user.name });
     })
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
 
 //------------CREATE USER----------------
 module.exports.createUser = (req, res) => {
-  const { name, about, avatar } = req.body;
+  const { name, about, avatar, email, password } = req.body;
 
-  User.create({ name, about, avatar })
+  User.create({ name, about, avatar, email, password })
     .then((user) => res.send({ data: user }))
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
