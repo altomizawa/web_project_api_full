@@ -11,7 +11,6 @@ module.exports.getAllCards = (req, res) => {
 
 //------------CREATE CARD----------------
 module.exports.createCard = (req, res) => {
-  console.log(req.user._id);
   const { name, link, owner, likes, createdAt } = req.body;
 
   Card.create({ name, link, owner, likes, createdAt })
@@ -92,4 +91,3 @@ module.exports.dislikeCard = (req, res) => {
         .send({ message: err.message || "Error" });
     });
 };
-// module.exports = router;
