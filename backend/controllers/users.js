@@ -27,19 +27,21 @@ module.exports.login = (req, res) => {
 
 //-----------GET MY USER PROFILE---------------
 module.exports.getProfile = (req, res) => {
+  console.log(req.user);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         console.log("error");
       }
-      const filtereduser = {
+      const filteredUser = {
         _id: user._id,
         name: user.name,
         email: user.email,
         avatar: user.avatar,
       };
+      console.log(filteredUser);
 
-      res.send({ data: filtereduser });
+      res.send(filteredUser);
     })
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
@@ -101,7 +103,9 @@ module.exports.updateUser = (req, res) => {
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
   User.findByIdAndUpdate(req.params.id, { avatar }, { new: true })
-    .then((user) => res.send({ data: user }))
+    .then((user) => {
+      res.send({ data: user });
+    })
     .catch((err) => {
       res
         .status(err.statusCode || 500)

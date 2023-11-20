@@ -1,4 +1,9 @@
-import { apiUrl, authorization } from '../components/constants';
+import {
+  apiUrl,
+  authorization,
+  authorization_new,
+  apiUrl_new,
+} from '../components/constants';
 
 class Api {
   constructor(url = apiUrl, authorizationToken = authorization) {
@@ -13,9 +18,14 @@ class Api {
         Authorization: this._authorization,
         'Content-Type': 'application/json',
       },
-    }).catch((err) => {
-      console.log(err);
-    });
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        return user;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   updateProfile(userInfo, button) {
@@ -29,10 +39,15 @@ class Api {
         name: `${userInfo.name}`,
         about: `${userInfo.about}`,
       }),
-    }).catch((err) => console.log(err));
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        return user;
+      })
+      .catch((err) => console.log(err));
   }
 
-  updateProfilePicture(avatar, button) {
+  updateProfilePicture(avatar) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -42,28 +57,39 @@ class Api {
       body: JSON.stringify({
         avatar: `${avatar}`,
       }),
-    }).catch((err) => {
-      console.log(err);
-    });
+    })
+      .then((res) => res.json())
+      .then((avatar) => {
+        return avatar;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   getCardArray() {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${apiUrl_new}/cards`, {
       method: 'GET',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
-    }).catch((err) => {
-      console.log(err);
-    });
+      credentials: 'include', // include credentials in the request
+    })
+      .then((res) => res.json())
+      .then((cards) => {
+        return cards;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   addCard(card) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${apiUrl_new}/cards`, {
       method: 'POST',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -75,7 +101,7 @@ class Api {
     });
   }
 
-  removeCard(cardId, button) {
+  removeCard(cardId) {
     return fetch(`${this._url}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {

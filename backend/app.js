@@ -5,11 +5,15 @@ const mongoose = require("mongoose");
 const connectDatabase = require("./data/database");
 
 const { PORT = 4000, BASE_PATH } = process.env;
-
 require("dotenv").config();
 
+const corsOptions = {
+  origin: `http://localhost:3000`,
+  credentials: true,
+};
+
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 connectDatabase();
@@ -21,7 +25,7 @@ const auth = require("./middleware/auth");
 const { configDotenv } = require("dotenv");
 const { getProfile } = require("./controllers/users");
 
-app.use("/users", auth, userRouter);
+app.use("/users", userRouter);
 
 app.use("/cards", auth, cardRouter);
 

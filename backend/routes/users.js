@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const auth = require("../middleware/auth");
 
 const {
   getAllUsers,
@@ -11,7 +12,7 @@ const {
 
 //User Route definitions\
 router.get("/", getAllUsers);
-router.get("/me", getProfile);
+router.get("/me", auth, getProfile);
 router.get("/:id", getUser);
 router.patch("/:id", updateUser);
 router.delete("/:id", deleteUser);

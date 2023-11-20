@@ -17,13 +17,9 @@ function Main(props) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    newApi
-      .getCardArray()
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setCards(data);
-      });
+    newApi.getCardArray().then((cards) => {
+      setCards(cards);
+    });
   }, []);
 
   // ------------------Event Handlers-------------------------
@@ -48,12 +44,9 @@ function Main(props) {
   //------------------Set User Data-------------------------
   const [currentUser, setCurrentUser] = React.useState({});
   React.useEffect(() => {
-    newApi
-      .getUser()
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentUser(data);
-      });
+    newApi.getUser().then((user) => {
+      setCurrentUser(user);
+    });
   }, []);
   const { name, about, avatar } = currentUser;
 
@@ -86,24 +79,19 @@ function Main(props) {
 
   // ------------------Update Avatar Function-------------------------
   const handleAvatarSubmit = (avatar, button) => {
-    newApi
-      .updateProfilePicture(avatar, button)
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentUser(data);
-        closeAllPopups();
-      });
+    newApi.updateProfilePicture(avatar, button).then((avatar) => {
+      console.log(avatar);
+      setCurrentUser(avatar);
+      closeAllPopups();
+    });
   };
 
   // ------------------Update Profile Function-------------------------
   const handleUpdateUser = (user, button) => {
-    newApi
-      .updateProfile(user, button)
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentUser(data);
-        closeAllPopups();
-      });
+    newApi.updateProfile(user, button).then((user) => {
+      setCurrentUser(user);
+      closeAllPopups();
+    });
   };
 
   // ------------------Create Card Function-------------------------
