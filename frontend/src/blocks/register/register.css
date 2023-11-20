@@ -1,0 +1,133 @@
+.register {
+  width: 100vw;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.register__form > h1 {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.register__form {
+  /* border: 1px solid white; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 80%;
+  margin-inline: auto;
+}
+
+.register__show-password {
+  text-align: left;
+  font-size: 0.8rem;
+  border: none;
+  margin-top: 0rem;
+  width: 100%;
+  max-width: 20rem;
+  color: grey;
+  text-underline-offset: 0.3rem;
+  cursor: pointer;
+  user-select: none;
+  /* border: 1px solid white; */
+}
+
+.register__signup {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1;
+  text-align: left;
+  color: grey;
+  margin-top: 2rem;
+}
+
+.register__signup > a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: white;
+}
+
+input[type='email'] {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-bottom: 1px solid white;
+  margin: 1rem;
+  width: 100%;
+  max-width: 20rem;
+  color: white;
+  font-size: 1rem;
+}
+
+input[type='password'] {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-bottom: 1px solid white;
+  margin: 1rem;
+  width: 100%;
+  max-width: 20rem;
+  color: white;
+  font-size: 1rem;
+}
+input[type='string'] {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-bottom: 1px solid white;
+  margin: 1rem;
+  width: 100%;
+  max-width: 20rem;
+  color: white;
+  font-size: 1rem;
+}
+.register__button {
+  background-color: #ffffff;
+  padding: 1rem;
+  width: 100%;
+  max-width: 20rem;
+  color: #000000;
+  text-align: center;
+  cursor: pointer;
+  transition: 100ms;
+  margin-top: 3rem;
+  user-select: none;
+}
+.register__button:hover {
+  opacity: 85%;
+}
+
+.register__button:active {
+  background-color: black;
+  color: white;
+}
+
+.register__text {
+  font-weight: 400;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.register__text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1;
+  text-align: left;
+  color: grey;
+  margin-top: 2rem;
+}
+
+.register__text > a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .register__form > h1 {
+    font-size: 2rem;
+  }
+}

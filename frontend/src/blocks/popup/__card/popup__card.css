@@ -1,0 +1,33 @@
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.popup__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: white;
+  width: 430px;
+  /* height: 330px; */
+  border-radius: 10px;
+  padding: 2rem;
+  row-gap: 2rem;
+  position: relative;
+  
+}
+.popup__card_error{
+  animation: tilt-shaking 0.15s;
+  animation-iteration-count: 3;
+
+}
+
+@media screen and (max-width: 500px) {
+  .popup__card {
+    width: 90%;
+  }
+}

@@ -5,7 +5,7 @@ const Card = require("../models/card");
 //-----------GET ALL CARDS---------------
 module.exports.getAllCards = (req, res) => {
   Card.find()
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
 
@@ -20,7 +20,7 @@ module.exports.createCard = (req, res) => {
       if (err.name === "ValidationError") {
         res.status(ERROR_CODE).send({ message: "Invalid data input" });
       } else {
-        res.status(500).send({ message: "Erro" });
+        res.status(500).send({ message: "Error" });
       }
     });
 };

@@ -1,0 +1,8 @@
+.card__likes {
+  width: 100%;
+  font-size: 14px;
+  color: grey;
+  font-weight: 500;
+  align-self: baseline;
+  text-align: center;
+}

@@ -1,0 +1,42 @@
+.header {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 1440px;
+  border-bottom: 1px #545454 solid;
+  padding-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  /* border: 1px solid white; */
+  margin-inline: auto;
+  transition: 250ms ease-in-out;
+}
+
+.header > a {
+  color: white;
+}
+.header > p {
+  font-size: 1rem;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    padding-inline: 0.5rem;
+  }
+}
+@media screen and (max-width: 640px) {
+  .header {
+    flex-direction: column-reverse;
+    align-items: center;
+    row-gap: 2rem;
+  }
+
+  .header > p {
+    margin-top: -3rem;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header > p {
+    font-size: 0.8rem;
+  }
+}

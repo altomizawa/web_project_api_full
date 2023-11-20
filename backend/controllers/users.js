@@ -78,6 +78,12 @@ module.exports.createUser = (req, res) => {
 
 //------------DELETE USER----------------
 module.exports.deleteUser = (req, res) => {
+  console.log(req.user._id);
+  console.log(req.params.id);
+  //Check if current user (req.user._id) matches target user
+  if (req.user._id !== req.params.id) {
+    return res.status(401).send({ message: "Unauthorized action" });
+  }
   User.findByIdAndRemove(req.params.id)
     .then((user) => res.send({ data: user }))
     .catch((err) => res.status(500).send({ message: "Error" }));

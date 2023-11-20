@@ -1,0 +1,17 @@
+.card__description-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1rem;
+  margin: 1.5rem 0;
+  padding-inline: 1.5rem;
+}
+
+.card__description-wrapper > img {
+  cursor: pointer;
+  transition: 150ms ease-in-out;
+}
+
+.card__description-wrapper > img:hover {
+  opacity: 0.5;
+}

@@ -1,0 +1,13 @@
+.header__menu_active > #top {
+  transform-origin: top left;
+  transform: rotate(45deg);
+}
+
+.header__menu_active > #bottom {
+  transform-origin: bottom left;
+  transform: rotate(-45deg);
+}
+
+.header__menu_active > #middle {
+  opacity: 0;
+}

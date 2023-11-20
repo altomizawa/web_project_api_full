@@ -1,0 +1,24 @@
+.adicionar-button {
+  width: 150px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 150ms ease-in-out;
+}
+.adicionar-button:hover {
+  opacity: 60%;
+}
+
+@media screen and (max-width: 768px) {
+  .adicionar-button {
+    width: 320px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .adicionar-button {
+    width: 95%;
+  }
+}

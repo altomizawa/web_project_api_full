@@ -1,0 +1,10 @@
+.copyrights {
+  color: #545454;
+}
+
+@media screen and (max-width: 768px) {
+  .copyrights {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}

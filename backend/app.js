@@ -4,7 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const connectDatabase = require("./data/database");
 
-const { PORT = 3000, BASE_PATH } = process.env;
+const { PORT = 4000, BASE_PATH } = process.env;
 
 require("dotenv").config();
 
@@ -21,21 +21,12 @@ const auth = require("./middleware/auth");
 const { configDotenv } = require("dotenv");
 const { getProfile } = require("./controllers/users");
 
-//AUTHORIZATION
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: "651da9f209d98f152c604157",
-//   };
-//   next();
-// });
-//app.use(auth);
-
 app.use("/users", auth, userRouter);
 
 app.use("/cards", auth, cardRouter);
 
 app.get("/", (req, res) => {
-  res.send("<h1>Server listening on PORT 3000.</h1>");
+  res.send(`<h1>Server listening on PORT ${PORT}.</h1>`);
 });
 
 app.post("/signin", login);

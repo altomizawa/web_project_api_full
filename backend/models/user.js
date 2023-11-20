@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
+    select: false,
   },
 });
 
@@ -56,22 +57,24 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
   password
 ) {
-  return this.findOne({ email }).then((user) => {
-    //Email not found in database, return error
-    if (!user) {
-      return Promise.reject(new Error("Incorrect email or password"));
-    }
-    //Email found! Compare passwords
-
-    return bcrypt.compare(password, user.password).then((matched) => {
-      //Passwords dont match, return error
-      if (!matched) {
+  return this.findOne({ email })
+    .select("+password")
+    .then((user) => {
+      //Email not found in database, return error
+      if (!user) {
         return Promise.reject(new Error("Incorrect email or password"));
       }
-      //passwords match, return user
-      return user;
+      //Email found! Compare passwords
+
+      return bcrypt.compare(password, user.password).then((matched) => {
+        //Passwords dont match, return error
+        if (!matched) {
+          return Promise.reject(new Error("Incorrect email or password"));
+        }
+        //passwords match, return user
+        return user;
+      });
     });
-  });
 };
 
 module.exports = mongoose.model("user", userSchema);

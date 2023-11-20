@@ -1,0 +1,5 @@
+.like-button_active {
+  filter: invert(22%) sepia(99%) saturate(7494%) hue-rotate(359deg)
+    brightness(97%) contrast(114%);
+    cursor: pointer;
+}

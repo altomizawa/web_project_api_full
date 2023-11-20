@@ -1,0 +1,12 @@
+.popup__submit-button {
+  width: 100%;
+  text-align: center;
+  border-radius: 2px;
+  padding-block: 1rem;
+  cursor: pointer;
+}
+
+.popup__submit-button:not([disabled]):hover {
+  opacity: 80%;
+  transition: 200ms ease-out;
+}

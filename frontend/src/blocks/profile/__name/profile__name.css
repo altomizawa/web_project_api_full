@@ -1,0 +1,17 @@
+@media screen and (max-width: 1024px) {
+  .profile__name {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile__name {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__name {
+    font-size: 22px;
+  }
+}

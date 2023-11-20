@@ -1,0 +1,12 @@
+.profile__picture {
+  width: 125px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile__picture::after{
+  width: 125px;
+  aspect-ratio: 1/1;
+  background-color: black;
+}

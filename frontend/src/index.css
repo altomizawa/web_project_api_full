@@ -1,0 +1,70 @@
+/* @import url(/vendors/normalize.css); */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;900&display=swap');
+@import url(./blocks/root/root.css);
+@import url(./blocks/logo/logo.css);
+
+/* ---------------HEADER SECTION------------------- */
+@import url(./blocks/header/header.css);
+@import url(./blocks/header/__logout-button/header__logout-button.css);
+@import url(./blocks/header/__logged-in/header__logged-in.css);
+@import url(./blocks/header/__menu/header__menu.css);
+@import url(./blocks/header/__menu-line/header__menu-line.css);
+@import url(./blocks/header/__menu/_active/header__menu_active.css);
+
+/* ---------------PROFILE SECTION------------------- */
+@import url(./blocks/profile/profile.css);
+@import url(./blocks/profile/__info/profile__info.css);
+@import url(./blocks/profile/__picture/profile__picture.css);
+@import url(./blocks/profile/__text-wrapper/profile__text-wrapper.css);
+@import url(./blocks/profile/__name-wrapper/profile__name-wrapper.css);
+@import url(./blocks/profile/__name/profile__name.css);
+@import url(./blocks/profile/__edit/profile__edit.css);
+@import url(./blocks/adicionar-button/adicionar-button.css);
+@import url(./blocks/adicionar-button/__image/adicionar-button__image.css);
+@import url(./blocks/profile/__picture-overlay/profile__picture-overlay.css);
+@import url(./blocks/profile/__picture-icon/profile__picture-icon.css);
+
+/* --------------------CARDS SECTION------------------------ */
+@import url(./blocks/cards/cards.css);
+@import url(./blocks/card/card.css);
+@import url(./blocks/card/__image/card__image.css);
+@import url(./blocks/card/__description-wrapper/card__description-wrapper.css);
+@import url(./blocks/card/__title/card__title.css);
+@import url(./blocks/like-button/like-button_active.css);
+@import url(./blocks/like-button/like-button_inactive.css);
+@import url(./blocks/like-button/like-button_hidden.css);
+
+@import url(./blocks/card/__delete-button/card__delete-button.css);
+@import url(./blocks/card/__delete-icon/card__delete-icon.css);
+@import url(./blocks/card/__delete-icon/card__delete-icon_inactive.css);
+@import url(./blocks/card/__likes/card__likes.css);
+@import url(./blocks/cards/__like-wrapper/cards__like-wrapper.css);
+
+/* --------------------FOOTER SECTION------------------------ */
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/copyrights/copyrights.css);
+
+/* --------------------POPUP SECTION------------------------ */
+@import url(./blocks/popup/popup.css);
+@import url(./blocks/popup/__card/popup__card.css);
+@import url(./blocks/popup/__input/popup__input.css);
+@import url(./blocks/popup/__submit-button/popup__submit-button.css);
+@import url(./blocks/popup/__submit-button/popup__submit-button_inactive.css);
+@import url(./blocks/popup/__close-button/popup__close-button.css);
+@import url(./blocks/popup/popup_active.css);
+@import url(./blocks/popup/__confirmation-button/popup__confirmation-button.css);
+@import url(./blocks/popup/__input/popup__input-error.css);
+
+@import url(./blocks/popupwithimage/popupwithimage.css);
+@import url(./blocks/popupwithimage/popupwithimage_active.css);
+@import url(./blocks/popupwithimage/__close-button/popupwithimage__close-button.css);
+@import url(./blocks/popupwithimage/__wrapper/popupwithimage__wrapper.css);
+
+/* ----------------------REGISTER POPUP------------------------ */
+@import url(./blocks/register/register.css);
+
+/* ----------------------INFOTOOLTIP POPUP------------------------ */
+@import url(./blocks/infotooltip/infotooltip.css);
+@import url(./blocks/infotooltip/__popup/infotooltip__popup.css);
+@import url(./blocks/infotooltip/_active/infotooltip_active.css);
+@import url(./blocks/infotooltip/__checkmark-wrapper/infotooltip__checkmark-wrapper.css);

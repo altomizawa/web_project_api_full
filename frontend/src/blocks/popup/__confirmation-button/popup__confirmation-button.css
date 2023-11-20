@@ -1,0 +1,11 @@
+.popup__confirmation-button {
+    width: 100%;
+    text-align: center;
+    border-radius: 2px;
+    padding-block: 1rem;
+    cursor: pointer;
+  }
+  
+  .popup__confirmation-button:not([disabled]):hover {
+    opacity: 80%;
+  }

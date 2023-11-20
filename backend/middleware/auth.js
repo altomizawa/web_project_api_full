@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   //Check if there's an authorization
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    return res.status(401).send({ message: "Authorization required" });
+    return res.status(403).send({ message: "Authorization required" });
   }
   //Authorization ok, clean up token by removing 'Bearer'
   const token = authorization.replace("Bearer ", "");
@@ -17,7 +17,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, secretKey);
   } catch (err) {
-    return res.status(401).send({ message: "Authorization required" });
+    return res.status(403).send({ message: "Authorization required" });
   }
 
   //Set payload to req.user
