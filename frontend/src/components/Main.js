@@ -48,7 +48,7 @@ function Main(props) {
       setCurrentUser(user);
     });
   }, []);
-  const { name, about, avatar } = currentUser;
+  const { name, about, avatar, _id } = currentUser;
 
   // --------------------MAP CARDS-------------------------
   const cardsData = cards.map((card, i) => (
@@ -78,8 +78,8 @@ function Main(props) {
   const [selectedCard, setSelectedCard] = React.useState(null);
 
   // ------------------Update Avatar Function-------------------------
-  const handleAvatarSubmit = (avatar, button) => {
-    newApi.updateProfilePicture(avatar, button).then((avatar) => {
+  const handleAvatarSubmit = (avatar) => {
+    newApi.updateProfilePicture(avatar, currentUser).then((avatar) => {
       console.log(avatar);
       setCurrentUser(avatar);
       closeAllPopups();
@@ -87,8 +87,8 @@ function Main(props) {
   };
 
   // ------------------Update Profile Function-------------------------
-  const handleUpdateUser = (user, button) => {
-    newApi.updateProfile(user, button).then((user) => {
+  const handleUpdateUser = (user) => {
+    newApi.updateProfile(user, currentUser).then((user) => {
       setCurrentUser(user);
       closeAllPopups();
     });

@@ -11,11 +11,27 @@ class Api {
     this._authorization = authorizationToken;
   }
 
+  // getUser() {
+  //   return fetch(`${this._url}/users/me`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: this._authorization,
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((user) => {
+  //       return user;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
   getUser() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${apiUrl_new}/users/me`, {
       method: 'GET',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
     })
@@ -28,11 +44,11 @@ class Api {
       });
   }
 
-  updateProfile(userInfo, button) {
-    return fetch(`${this._url}/users/me`, {
+  updateProfile(userInfo, currentUser) {
+    return fetch(`${apiUrl_new}/users/${currentUser._id}`, {
       method: 'PATCH',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -47,11 +63,31 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  updateProfilePicture(avatar) {
-    return fetch(`${this._url}/users/me/avatar`, {
+  // updateProfilePicture(avatar) {
+  //   return fetch(`${this._url}/users/me/avatar`, {
+  //     method: 'PATCH',
+  //     headers: {
+  //       Authorization: this._authorization,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       avatar: `${avatar}`,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((avatar) => {
+  //       return avatar;
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }
+
+  updateProfilePicture(avatar, currentUser) {
+    return fetch(`${apiUrl_new}/users/${currentUser._id}/avatar`, {
       method: 'PATCH',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

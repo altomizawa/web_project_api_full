@@ -27,7 +27,7 @@ module.exports.login = (req, res) => {
 
 //-----------GET MY USER PROFILE---------------
 module.exports.getProfile = (req, res) => {
-  console.log(req.user);
+  // console.log(req.user);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
@@ -37,9 +37,10 @@ module.exports.getProfile = (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        about: user.about,
         avatar: user.avatar,
       };
-      console.log(filteredUser);
+      // console.log(filteredUser);
 
       res.send(filteredUser);
     })
@@ -60,7 +61,7 @@ module.exports.getUser = (req, res) => {
       if (!user) {
         return res.status(400).send({ message: "User not found!" });
       }
-      res.send({ data: user._id });
+      res.send(user);
     })
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
@@ -80,8 +81,6 @@ module.exports.createUser = (req, res) => {
 
 //------------DELETE USER----------------
 module.exports.deleteUser = (req, res) => {
-  console.log(req.user._id);
-  console.log(req.params.id);
   //Check if current user (req.user._id) matches target user
   if (req.user._id !== req.params.id) {
     return res.status(401).send({ message: "Unauthorized action" });
@@ -95,16 +94,17 @@ module.exports.deleteUser = (req, res) => {
 module.exports.updateUser = (req, res) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.params.id, { name, about }, { new: true })
-    .then((user) => res.send({ data: user }))
+    .then((user) => res.send(user))
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
 
 //-------------UPDATE AVATAR--------------
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
+  console.log(avatar);
   User.findByIdAndUpdate(req.params.id, { avatar }, { new: true })
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       res

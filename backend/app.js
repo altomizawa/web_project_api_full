@@ -25,7 +25,7 @@ const auth = require("./middleware/auth");
 const { configDotenv } = require("dotenv");
 const { getProfile } = require("./controllers/users");
 
-app.use("/users", userRouter);
+app.use("/users", auth, userRouter);
 
 app.use("/cards", auth, cardRouter);
 
