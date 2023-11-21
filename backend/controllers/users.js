@@ -27,7 +27,6 @@ module.exports.login = (req, res) => {
 
 //-----------GET MY USER PROFILE---------------
 module.exports.getProfile = (req, res) => {
-  // console.log(req.user);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
