@@ -12,7 +12,7 @@ export default function Card(props) {
   const currentUser = useContext(CurrentUserContext);
 
   //Check if it's my card
-  const isThisMyCard = currentUser._id === props.owner._id;
+  const isThisMyCard = currentUser._id === props.card.owner;
 
   //Check if ive liked the card
   const isLiked = props.likes.some((i) => i._id === currentUser._id);
@@ -56,7 +56,7 @@ export default function Card(props) {
               }
               id="like_off"
               onClick={() => {
-                props.onCardLike(props);
+                props.onCardLike(props.card);
               }}
             />
             <p className="card__likes">{props.likes.length}</p>

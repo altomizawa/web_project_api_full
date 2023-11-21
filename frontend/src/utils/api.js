@@ -138,20 +138,20 @@ class Api {
   }
 
   removeCard(cardId) {
-    return fetch(`${this._url}/cards/${cardId}`, {
+    return fetch(`${apiUrl_new}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application/json',
       },
     });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${this._url}/cards/likes/${cardId}`, {
+    return fetch(`${apiUrl_new}/cards/likes/${cardId}`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: {
-        Authorization: this._authorization,
+        Authorization: `Bearer ${authorization_new}`,
         'Content-Type': 'application.json',
       },
     })
