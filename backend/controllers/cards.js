@@ -14,8 +14,9 @@ module.exports.getAllCards = (req, res) => {
 module.exports.createCard = (req, res) => {
   const { name, link, likes, createdAt } = req.body;
   const owner = req.user._id;
+  console.log(req.user._id);
 
-  Card.create({ name, link, owner, likes, createdAt })
+  Card.create({ name, link, owner: owner, likes, createdAt })
     .then((card) => res.send(card))
     .catch((err) => {
       const ERROR_CODE = 400;

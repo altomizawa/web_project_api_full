@@ -17,8 +17,7 @@ module.exports.login = (req, res) => {
       const token = jwt.sign({ _id: user._id }, secretKey, {
         expiresIn: "7d",
       });
-      console.log(token);
-      res.send({ token });
+      res.send({ data: token });
     })
     .catch((err) => {
       res.status(401).send({ message: err.message });
@@ -27,6 +26,7 @@ module.exports.login = (req, res) => {
 
 //-----------GET MY USER PROFILE---------------
 module.exports.getProfile = (req, res) => {
+  console.log(req.user);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {

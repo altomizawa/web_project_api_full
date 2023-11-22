@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
   }
   //Authorization ok, clean up token by removing 'Bearer'
   const token = authorization.replace("Bearer ", "");
+
   let payload;
 
   //Check if payload matches existing payload
@@ -22,6 +23,7 @@ module.exports = (req, res, next) => {
 
   //Set payload to req.user
   req.user = payload;
+  console.log(payload);
 
   //Call next middleware
   next();
