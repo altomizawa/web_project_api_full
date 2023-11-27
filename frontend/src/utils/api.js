@@ -112,14 +112,15 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${BASE_URL}/cards/${cardId}/likes}`, {
+    return fetch(`${BASE_URL}/cards/${cardId}/likes`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application.json',
+        'Content-Type': 'application/json',
       },
     })
       .then((res) => res.json())
+      .then(newCard => newCard)
       .catch((err) => {
         console.log(err);
       });

@@ -14,8 +14,7 @@ module.exports.getAllCards = (req, res) => {
 module.exports.createCard = (req, res) => {
   const { name, link, likes, createdAt } = req.body;
   const owner = req.user._id;
-  console.log(owner)
-  console.log(req.body)
+
 
   Card.create({ name, link, owner: owner, likes, createdAt })
     .then((card) => res.send(card))
@@ -68,9 +67,10 @@ module.exports.updateCard = (req, res) => {
 
 //-------------LIKE CARD--------------
 module.exports.likeCard = (req, res) => {
+  console.log(req.params.id)
   Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user.id } },
+    req.params.id,
+    { $addToSet: { likes: req.user._id } },
     { new: true }
   )
     .then((card) => res.send(card))
@@ -84,11 +84,11 @@ module.exports.likeCard = (req, res) => {
 //-------------DISLIKE CARD--------------
 module.exports.dislikeCard = (req, res) => {
   Card.findByIdAndUpdate(
-    req.params.cardId,
+    req.params.id,
     { $pull: { likes: req.user._id } },
     { new: true }
   )
-    .then((card) => res.send({ data: card }))
+    .then((card) => res.send(card))
     .catch((err) => {
       res
         .status(err.statusCode || 500)

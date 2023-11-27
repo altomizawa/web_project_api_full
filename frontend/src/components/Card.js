@@ -8,6 +8,7 @@ import heart from '../images/heart.svg';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Card(props) {
+
   // ------------------Context-------------------------
   const currentUser = useContext(CurrentUserContext);
 
@@ -16,7 +17,7 @@ export default function Card(props) {
   const isThisMyCard = currentUser._id === props.owner;
 
   //Check if ive liked the card
-  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+  const isLiked = props.card.likes.some((likeId) => likeId === currentUser._id);
   
   //-----------------------Return JSX--------------------
   return (
