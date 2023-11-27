@@ -67,7 +67,6 @@ module.exports.updateCard = (req, res) => {
 
 //-------------LIKE CARD--------------
 module.exports.likeCard = (req, res) => {
-  console.log(req.params.id)
   Card.findByIdAndUpdate(
     req.params.id,
     { $addToSet: { likes: req.user._id } },

@@ -39,7 +39,6 @@ module.exports.getProfile = (req, res) => {
         about: user.about,
         avatar: user.avatar,
       };
-      console.log(user);
 
       res.send(filteredUser);
     })
@@ -100,7 +99,6 @@ module.exports.updateUser = (req, res) => {
 //-------------UPDATE AVATAR--------------
 module.exports.updateAvatar = (req, res) => {
   const { avatar } = req.body;
-  console.log(avatar);
   User.findByIdAndUpdate(req.params.id, { avatar }, { new: true })
     .then((user) => {
       res.send(user);
