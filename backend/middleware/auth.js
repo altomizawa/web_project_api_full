@@ -23,7 +23,7 @@ module.exports = (req, res, next) => {
 
   //Set payload to req.user
   req.user = payload;
-  console.log(payload);
+  console.log(req.user._id)
 
   //Call next middleware
   next();

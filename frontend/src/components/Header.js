@@ -3,10 +3,12 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { AppContext } from './AppContext';
 
-function Header({ loggedIn, setLoggedIn, setUserData }) {
+
+function Header({setLoggedIn, user}) {
   const navigate = useNavigate();
   const location = useLocation();
-  const value = useContext(AppContext);
+  let context = useContext(AppContext);
+
 
   let currentLocationText = '';
 
@@ -31,9 +33,9 @@ function Header({ loggedIn, setLoggedIn, setUserData }) {
         alt="logotipo de Around the US"
         className="logo"
       />
-      {loggedIn ? (
+      {context.state ? (
         <div className="header__logged-in">
-          <p>{value.user.email}</p>
+          <p>{context.user.email}</p>
           <button className="header__logout-button" onClick={signOut}>
             Logout
           </button>

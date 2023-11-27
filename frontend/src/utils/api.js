@@ -1,37 +1,20 @@
 import {
-  apiUrl,
-  authorization,
-  authorization_new,
-  apiUrl_new,
+  BASE_URL,
 } from '../components/constants';
-// let authorization_new = localStorage.getItem('token');
+let authorization = localStorage.getItem('token');
+
 class Api {
-  constructor(url = apiUrl, authorizationToken = authorization) {
+  constructor(url = BASE_URL, authorizationToken = authorization) {
     this._url = url;
     this._authorization = authorizationToken;
   }
 
-  // getUser() {
-  //   return fetch(`${this._url}/users/me`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: this._authorization,
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((user) => {
-  //       return user;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+ 
   getUser() {
-    return fetch(`${apiUrl_new}/users/me`, {
+    return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
     })
@@ -45,10 +28,10 @@ class Api {
   }
 
   updateProfile(userInfo, currentUser) {
-    return fetch(`${apiUrl_new}/users/${currentUser._id}`, {
+    return fetch(`${BASE_URL}/users/${currentUser._id}`, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -63,31 +46,12 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  // updateProfilePicture(avatar) {
-  //   return fetch(`${this._url}/users/me/avatar`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       Authorization: this._authorization,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       avatar: `${avatar}`,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((avatar) => {
-  //       return avatar;
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
 
   updateProfilePicture(avatar, currentUser) {
-    return fetch(`${apiUrl_new}/users/${currentUser._id}/avatar`, {
+    return fetch(`${BASE_URL}/users/${currentUser._id}/avatar`, {
       method: 'PATCH',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -104,10 +68,10 @@ class Api {
   }
 
   getCardArray() {
-    return fetch(`${apiUrl_new}/cards`, {
+    return fetch(`${BASE_URL}/cards`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       credentials: 'include', // include credentials in the request
@@ -122,10 +86,10 @@ class Api {
   }
 
   addCard(card) {
-    return fetch(`${apiUrl_new}/cards`, {
+    return fetch(`${BASE_URL}/cards`, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -138,20 +102,20 @@ class Api {
   }
 
   removeCard(cardId) {
-    return fetch(`${apiUrl_new}/cards/${cardId}`, {
+    return fetch(`${BASE_URL}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json',
       },
     });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${apiUrl_new}/cards/likes/${cardId}`, {
+    return fetch(`${BASE_URL}/cards/${cardId}/likes}`, {
       method: !isLiked ? 'PUT' : 'DELETE',
       headers: {
-        Authorization: `Bearer ${authorization_new}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application.json',
       },
     })

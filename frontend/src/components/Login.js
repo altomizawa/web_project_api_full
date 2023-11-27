@@ -34,10 +34,12 @@ function Login(props) {
       .authorize(formData)
       .then((data) => {
         if (data.token) {
+          localStorage.setItem('token', data.token)
           props.handleLogin();
         }
       })
       .catch((err) => {
+        console.log(err)
         setRegistrationStatus('error');
         return setIsPopupActive(true);
       });

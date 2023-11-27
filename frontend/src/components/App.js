@@ -14,36 +14,40 @@ import { AppContext } from './AppContext';
 //---------------------------------------------------------------------------------------------------------------------
 
 export default function App() {
+  
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
-  useEffect(() => {
-    tokenCheck();
-  }, []);
-
   const [userData, setUserData] = useState('');
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  //const token = localStorage.getItem('token')
 
-  function handleLogin() {
-    tokenCheck();
-  }
+//Check for previous authorization on app start (token)
+useEffect(() => {
+  tokenCheck();
+}, []);
 
-  function tokenCheck() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      auth.getContent(token).then(({ data }) => {
-        setUserData(data);
-        setLoggedIn(true);
-        navigate('/');
-      });
-    }
+//check if there's a token
+function tokenCheck() {
+  if (token) {
+    handleLogin()
   }
+}
+
+//Handle successful login
+function handleLogin() {
+  auth.getContent(localStorage.getItem('token')).then((data) => {
+    setUserData(data);
+    setLoggedIn(true);
+    navigate('/')
+  })
+}
+
 
   // ------------------JSX-------------------------
   return (
     <AppContext.Provider value={{ state: loggedIn, user: userData }}>
       <Header
-        loggedIn={loggedIn}
         setLoggedIn={setLoggedIn}
-        setUserData={setUserData}
       />
       <Routes>
         <Route

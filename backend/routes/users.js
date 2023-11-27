@@ -12,7 +12,7 @@ const {
 
 //User Route definitions\
 router.get("/", getAllUsers);
-router.get("/me", auth, getProfile);
+router.get("/me", getProfile);
 router.get("/:id", getUser);
 router.patch("/:id", updateUser);
 router.delete("/:id", deleteUser);

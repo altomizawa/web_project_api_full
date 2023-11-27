@@ -9,6 +9,7 @@ const { restart } = require("nodemon");
 //-----------LOGIN---------------
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
+
   const secretKey = process.env.JWT_SECRET;
 
   return User.findUserByCredentials(email, password)
@@ -17,7 +18,7 @@ module.exports.login = (req, res) => {
       const token = jwt.sign({ _id: user._id }, secretKey, {
         expiresIn: "7d",
       });
-      res.send({ data: token });
+      res.send({ token: token });
     })
     .catch((err) => {
       res.status(401).send({ message: err.message });
@@ -26,7 +27,6 @@ module.exports.login = (req, res) => {
 
 //-----------GET MY USER PROFILE---------------
 module.exports.getProfile = (req, res) => {
-  console.log(req.user);
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
@@ -39,7 +39,7 @@ module.exports.getProfile = (req, res) => {
         about: user.about,
         avatar: user.avatar,
       };
-      // console.log(filteredUser);
+      console.log(user);
 
       res.send(filteredUser);
     })

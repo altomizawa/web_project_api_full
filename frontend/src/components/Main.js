@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import newApi from '../utils/api';
 
 import PencilButton from '../images/Pencil.svg';
@@ -13,9 +13,10 @@ import AddPlacePopup from './AddPlacePopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
+
   // ------------------Set Cards Array-------------------------
   const [cards, setCards] = React.useState([]);
-
+  const authorization = localStorage.getItem('token')
   React.useEffect(() => {
     newApi.getCardArray().then((cards) => {
       setCards(cards);
@@ -44,11 +45,12 @@ function Main(props) {
   //------------------Set User Data-------------------------
   const [currentUser, setCurrentUser] = React.useState({});
   React.useEffect(() => {
-    newApi.getUser().then((user) => {
+    newApi.getUser(authorization).then((user) => {
       setCurrentUser(user);
     });
   }, []);
   const { name, about, avatar, _id } = currentUser;
+  
 
   // --------------------MAP CARDS-------------------------
   const cardsData = cards.map((card, i) => (
@@ -59,7 +61,7 @@ function Main(props) {
       onCardClick={handleCardClick}
       handleCardDelete={handleCardDelete}
       selectedCard={props.selectedCard}
-      user={props.user}
+
       onCardLike={handleCardLike}
     />
   ));
@@ -80,7 +82,6 @@ function Main(props) {
   // ------------------Update Avatar Function-------------------------
   const handleAvatarSubmit = (avatar) => {
     newApi.updateProfilePicture(avatar, currentUser).then((avatar) => {
-      console.log(avatar);
       setCurrentUser(avatar);
       closeAllPopups();
     });
