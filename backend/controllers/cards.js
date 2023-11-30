@@ -1,6 +1,6 @@
 const router = require("express").Router();
-
 const Card = require("../models/card");
+
 
 //-----------GET ALL CARDS---------------
 module.exports.getAllCards = (req, res) => {
@@ -9,6 +9,8 @@ module.exports.getAllCards = (req, res) => {
     .then((cards) => res.send(cards))
     .catch((err) => res.status(500).send({ message: "Error" }));
 };
+
+
 
 //------------CREATE CARD----------------
 module.exports.createCard = (req, res) => {

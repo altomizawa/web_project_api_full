@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 
+const requestError = require('../errors/request-error')
+
 // Regular expression for validating the avatar URL
 const avatarURLPattern =
   /^(https?:\/\/)?(www\.)?[a-zA-Z0-9._~:/?%#[\]@!$&'()*+,;=,-]+(#)?$/;
@@ -62,14 +64,14 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
     .then((user) => {
       //Email not found in database, return error
       if (!user) {
-        return Promise.reject(new Error("Incorrect email or password"));
+        return Promise.reject(new requestError("Incorrect email or password"));
       }
       //Email found! Compare passwords
 
       return bcrypt.compare(password, user.password).then((matched) => {
         //Passwords dont match, return error
         if (!matched) {
-          return Promise.reject(new Error("Incorrect email or password"));
+          return Promise.reject(new requestError("Incorrect email or password"));
         }
         //passwords match, return user
         return user;

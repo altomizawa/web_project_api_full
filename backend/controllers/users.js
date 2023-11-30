@@ -2,6 +2,10 @@ require("dotenv").config();
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const NotFoundError = require("../errors/not-found-error");
+const AuthError = require('../errors/auth-error');
+const requestError = require('../errors/request-error')
+
 
 const User = require("../models/user");
 const { restart } = require("nodemon");
@@ -21,6 +25,7 @@ module.exports.login = (req, res) => {
       res.send({ token: token });
     })
     .catch((err) => {
+      // next(new AuthError(err.message))
       res.status(401).send({ message: err.message });
     });
 };
@@ -30,7 +35,7 @@ module.exports.getProfile = (req, res) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        console.log("error");
+        throw new NotFoundError('User not found in our Database');
       }
       const filteredUser = {
         _id: user._id,
@@ -42,7 +47,7 @@ module.exports.getProfile = (req, res) => {
 
       res.send(filteredUser);
     })
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch(err => next(err));
 };
 
 //-----------GET ALL USERS---------------
@@ -57,7 +62,7 @@ module.exports.getUser = (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
       if (!user) {
-        return res.status(400).send({ message: "User not found!" });
+        throw new Error({message: 'User not found in our Database'})
       }
       res.send(user);
     })

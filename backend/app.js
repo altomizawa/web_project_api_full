@@ -41,6 +41,16 @@ app.use((req, res, next) => {
   res.status(404).send("Error: Page not found");
 });
 
+//middleware to handle ALL errors
+app.use((err, req, res, next) => {
+  //destructuring err and set statusCode default to 500 is not present
+  const {statusCode = 500, message } = err;
+  res.status(statusCode)
+  .send({
+    message: statusCode===500 ? 'There was a server error' : message
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`The app is listening on PORT ${PORT}`);
 });

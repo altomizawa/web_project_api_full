@@ -1,12 +1,10 @@
 import {
   BASE_URL,
 } from '../components/constants';
-let authorization = localStorage.getItem('token');
 
 class Api {
-  constructor(url = BASE_URL, authorizationToken = authorization) {
+  constructor(url = BASE_URL) {
     this._url = url;
-    this._authorization = authorizationToken;
   }
 
  
