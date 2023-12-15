@@ -39,7 +39,6 @@ function Login(props) {
         }
       })
       .catch((err) => {
-        console.log(err)
         setRegistrationStatus('error');
         return setIsPopupActive(true);
       });

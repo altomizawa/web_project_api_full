@@ -11,7 +11,7 @@ const User = require("../models/user");
 const { restart } = require("nodemon");
 
 //-----------LOGIN---------------
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   const secretKey = process.env.JWT_SECRET;
@@ -25,8 +25,8 @@ module.exports.login = (req, res) => {
       res.send({ token: token });
     })
     .catch((err) => {
-      // next(new AuthError(err.message))
-      res.status(401).send({ message: err.message });
+      next(new AuthError(err.message))
+      //res.status(401).send({ message: err.message });
     });
 };
 

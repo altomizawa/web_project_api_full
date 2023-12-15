@@ -1,6 +1,7 @@
 {
   "extends": "airbnb-base",
   "rules": {
-    "camelcase": ["error", { "properties": "always", "ignoreDestructuring": true, "allow": ["_id"] }]
+    "camelcase": ["error", { "properties": "always", "ignoreDestructuring": true, "allow": ["_id"] }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
   }
 }

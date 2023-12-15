@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import newApi from '../utils/api';
 
 import PencilButton from '../images/Pencil.svg';
@@ -49,7 +49,7 @@ function Main(props) {
       setCurrentUser(user);
     });
   }, []);
-  const { name, about, avatar, _id } = currentUser;
+  const { name, about, avatar } = currentUser;
   
 
   // --------------------MAP CARDS-------------------------
