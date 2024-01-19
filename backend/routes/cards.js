@@ -1,4 +1,6 @@
 const router = require("express").Router();
+const {celebrate, Joi, errors} = require('celebrate')
+
 const {
   getAllCards,
   getCard,
@@ -10,6 +12,23 @@ const {
 } = require("../controllers/cards");
 
 const auth = require("../middleware/auth");
+
+//CREATE CARD VALIDATION
+  //Custom URL validation
+  const validateURL = (value, helpers) => {
+    if (validator.isURL(value)) {
+      return value
+    }
+    return helpers.error('string.uri')
+  }
+  
+  const createCardValidation = celebrate({
+    body: Joi.object().keys({
+      name: Joi.string().required().min(8).max(30),
+      link: Joi.string().required().custom(validateURL),
+    }),
+  })
+  
 
 //Card Route definitions
 router.get("/", getAllCards);

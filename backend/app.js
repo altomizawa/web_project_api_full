@@ -38,28 +38,31 @@ const signupValidation = celebrate({
   }),
 });
 
-//CREATE CARD VALIDATION
-  //Custom URL validation
-const validateURL = (value, helpers) => {
-  if (validator.isURL(value)) {
-    return value
-  }
-  return helpers.error('string.uri')
-}
+// //CREATE CARD VALIDATION
+//   //Custom URL validation
+// const validateURL = (value, helpers) => {
+//   if (validator.isURL(value)) {
+//     return value
+//   }
+//   return helpers.error('string.uri')
+// }
 
-const createCardValidation = celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().required().min(8).max(30),
-    link: Joi.string().required().custom(validateURL),
-  }),
-})
+// const createCardValidation = celebrate({
+//   body: Joi.object().keys({
+//     name: Joi.string().required().min(8).max(30),
+//     link: Joi.string().required().custom(validateURL),
+//   }),
+// })
 
 //REQUEST LOGGER MIDDLEWARE
 app.use(requestLogger);
 
 app.use("/users", auth, userRouter);
 
-app.use("/cards", auth, createCardValidation, cardRouter);
+//LINE BELOW NOT WORKING WHEN CLICKIN LIKE BUTTON BECAUSE OF CREATECARDvALIDATION. FIND ERROR
+//POSSIBLY BECAUSE IT'S ASKING FOR VALIDATION IN EVERY REQUEST, INSTEAD OF JUST WHEN CREATING CARD
+// app.use("/cards", auth, createCardValidation, cardRouter);
+app.use("/cards", auth, cardRouter);
 
 app.get("/", (req, res) => {
   res.send(`<h1>Server listening on PORT ${PORT}.</h1>`);

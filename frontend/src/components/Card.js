@@ -16,9 +16,9 @@ export default function Card(props) {
  
   const isThisMyCard = currentUser._id === props.owner;
 
-  //Check if ive liked the card
+  //Check if ive liked the 
   const isLiked = props.card.likes.some((likeId) => likeId === currentUser._id);
-  
+
   //-----------------------Return JSX--------------------
   return (
     <>
