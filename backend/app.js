@@ -10,7 +10,6 @@ const { requestLogger, errorLogger } = require('./middleware/logger')
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
 
-
 const corsOptions = {
   origin: `http://localhost:3000`,
   credentials: true,
