@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const mongoose = require("mongoose");
 const connectDatabase = require("./data/database");
 const {celebrate, Joi, errors} = require('celebrate')
@@ -10,13 +9,13 @@ const { requestLogger, errorLogger } = require('./middleware/logger')
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
 
-const corsOptions = {
-  origin: `http://localhost:3000`,
-  credentials: true,
-};
+
 
 const app = express();
-app.use(cors(corsOptions));
+
+//import CORS middleware
+app.use(require('./middleware/cors'));
+
 app.use(bodyParser.json());
 
 connectDatabase();
@@ -37,21 +36,6 @@ const signupValidation = celebrate({
   }),
 });
 
-// //CREATE CARD VALIDATION
-//   //Custom URL validation
-// const validateURL = (value, helpers) => {
-//   if (validator.isURL(value)) {
-//     return value
-//   }
-//   return helpers.error('string.uri')
-// }
-
-// const createCardValidation = celebrate({
-//   body: Joi.object().keys({
-//     name: Joi.string().required().min(8).max(30),
-//     link: Joi.string().required().custom(validateURL),
-//   }),
-// })
 
 //REQUEST LOGGER MIDDLEWARE
 app.use(requestLogger);
