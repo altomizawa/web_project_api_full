@@ -10,15 +10,13 @@ const cors = require('cors')
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
 
-
-
 const app = express();
+
+app.use(bodyParser.json());
 
 //Add CORS middleware
 app.use(cors());
 app.options('*', cors()); //make all routes available
-
-app.use(bodyParser.json());
 
 connectDatabase();
 
