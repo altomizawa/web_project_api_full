@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 //Add CORS middleware
 app.use(cors());
-app.options('*', cors()); //make all routes available
+// app.options('*', cors()); //make all routes available
 
 connectDatabase();
 
