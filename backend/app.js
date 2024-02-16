@@ -5,6 +5,7 @@ const connectDatabase = require("./data/database");
 const {celebrate, Joi, errors} = require('celebrate')
 const validator = require('validator')
 const { requestLogger, errorLogger } = require('./middleware/logger')
+const cors = require('cors')
 
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
@@ -13,8 +14,9 @@ require("dotenv").config();
 
 const app = express();
 
-//import CORS middleware
-app.use(require('./middleware/cors'));
+//Add CORS middleware
+app.use(cors());
+app.options('*', cors()); //make all routes available
 
 app.use(bodyParser.json());
 
