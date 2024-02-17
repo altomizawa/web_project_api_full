@@ -62,6 +62,14 @@ app.use("/cards", auth, cardRouter);
 app.get("/", (req, res) => {
   res.send(`<h1>Server listening on PORT ${PORT}.</h1>`);
 });
+
+//remove code below after revision
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('O servidor travará agora');
+  }, 0);
+});
+
 app.post("/signin", signupValidation, login);
 app.post("/signup", signupValidation, createUser);
 
