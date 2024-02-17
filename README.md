@@ -43,10 +43,6 @@ Your app is ready to be deployed!
 
 See the section about deployment for more information.
 
-## Next Steps
-
-- Currently the project is running off of 2 different servers, so the next step is to have it run from only one.
-- Add more security features
 
 # BACKEND SECTION
 
