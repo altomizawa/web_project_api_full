@@ -8,11 +8,11 @@ Only people logged in can see the cards. They can signup for the service in the 
 
 Once logged in, you can change your profile info, picture, add cards, like cards and delete them (if you're the owner of the card).
 
-![](screenshots/login.png)
-![](screenshots/home.png)
-![](screenshots/updateProfileInfo.png)
-![](screenshots/addPlace.png)
-![](screenshots/bigPicture.png)
+![](frontend/scr/screenshots/login.png)
+![](frontend/scr/screenshots/home.png)
+![](frontend/scr/screenshots/updateProfileInfo.png)
+![](frontend/scr/screenshots/addPlace.png)
+![](frontend/scr/screenshots/bigPicture.png)
 
 
 # FRONTEND SECTION
