@@ -17,8 +17,7 @@ Once logged in, you can change your profile info, picture, add cards, like cards
 https://github.com/altomizawa/web_project_api_full/assets/45319659/68b46a24-9327-46cb-8098-4d134a995828
 
 ## Live Website
-https://www.discoverus.fairuse.org/
-
+[Visit the live website](https://www.discoverus.fairuse.org/) **target="_blank"**
 
 # FRONTEND SECTION
 
