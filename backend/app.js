@@ -5,7 +5,7 @@ const connectDatabase = require("./data/database");
 const {celebrate, Joi, errors} = require('celebrate')
 const validator = require('validator')
 const { requestLogger, errorLogger } = require('./middleware/logger')
-const cors = require('cors')
+// const cors = require('cors')
 
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
@@ -15,19 +15,22 @@ const app = express();
 app.use(bodyParser.json());
 
 //Add CORS middleware
+const corsMiddleware = require('./middleware/cors'); //import middleWare
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://localhost:3000',
-  'https://discoverus.fairuse.org',
-  'http://discoverus.fairuse.org',
-  'http://www.discoverus.fairuse.org',
-  'https://www.discoverus.fairuse.org'
-]
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(corsMiddleware); //apply CORS middleware
+
+// const allowedOrigins = [
+//   'http://localhost:3000',
+//   'https://localhost:3000',
+//   'https://discoverus.fairuse.org',
+//   'http://discoverus.fairuse.org',
+//   'http://www.discoverus.fairuse.org',
+//   'https://www.discoverus.fairuse.org'
+// ]
+// app.use(cors({
+//   origin: allowedOrigins,
+//   credentials: true
+// }));
 app.options('*', cors()); //make all routes available
 
 connectDatabase();
