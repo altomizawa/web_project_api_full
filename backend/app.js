@@ -15,8 +15,20 @@ const app = express();
 app.use(bodyParser.json());
 
 //Add CORS middleware
-app.use(cors());
-// app.options('*', cors()); //make all routes available
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'https://discoverus.fairuse.org',
+  'http://discoverus.fairuse.org',
+  'http://www.discoverus.fairuse.org',
+  'https://www.discoverus.fairuse.org'
+]
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+app.options('*', cors()); //make all routes available
 
 connectDatabase();
 
