@@ -13,6 +13,10 @@ Once logged in, you can change your profile info, picture, add cards, like cards
 ![addPlace](https://github.com/altomizawa/web_project_api_full/assets/45319659/0291ea8f-193d-4ff9-9c44-34d01df80e4e)
 ![bigPicture](https://github.com/altomizawa/web_project_api_full/assets/45319659/300d3ddd-74f0-4862-9d8e-a56fdcac11c5)
 
+
+https://github.com/altomizawa/web_project_api_full/assets/45319659/68b46a24-9327-46cb-8098-4d134a995828
+
+
 # FRONTEND SECTION
 
 ## Tools Used
