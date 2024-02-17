@@ -7,13 +7,11 @@ This website lets people add and delete a picture card to/from their database. T
 Only people logged in can see the cards. They can signup for the service in the signup page, then log in.
 
 Once logged in, you can change your profile info, picture, add cards, like cards and delete them (if you're the owner of the card).
-
-![](frontend/scr/screenshots/login.png)
-![](frontend/scr/screenshots/home.png)
-![](frontend/scr/screenshots/updateProfileInfo.png)
-![](frontend/scr/screenshots/addPlace.png)
-![](frontend/scr/screenshots/bigPicture.png)
-
+![login](https://github.com/altomizawa/web_project_api_full/assets/45319659/e77529a4-a8ba-4c3c-a370-43fd19cbde0f)
+![home](https://github.com/altomizawa/web_project_api_full/assets/45319659/3f10c099-48b4-43cd-a670-a2815fc75455)
+![updateProfileInfo](https://github.com/altomizawa/web_project_api_full/assets/45319659/64d7b0bb-395d-4b92-b7a4-16c9d8130063)
+![addPlace](https://github.com/altomizawa/web_project_api_full/assets/45319659/0291ea8f-193d-4ff9-9c44-34d01df80e4e)
+![bigPicture](https://github.com/altomizawa/web_project_api_full/assets/45319659/300d3ddd-74f0-4862-9d8e-a56fdcac11c5)
 
 # FRONTEND SECTION
 
