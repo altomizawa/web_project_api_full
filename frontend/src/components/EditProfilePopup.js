@@ -46,6 +46,11 @@ export default function EditProfilePopup(props) {
       }, 1000);
     }
     props.onUpdateUser(formData);
+
+    //disable button
+    const button = e.target.querySelector('button')
+    button.classList.add('popup__submit-button_inactive')
+    console.log(button)
   }
 
   return (

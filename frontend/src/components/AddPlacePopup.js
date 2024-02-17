@@ -9,12 +9,23 @@ export default function AddPlacePopup(props) {
     formData.cardLink.startsWith(https)
       ? props.onAddPlaceSubmit(formData)
       : props.onClose();
+
+      //Reset form value
+      setFormData({
+        cardName: '',
+        cardLink: '',
+      });
+
+      //Make Submit Button inactive
+      const button =e.target.querySelector('button')
+      button.classList.add('popup__submit-button_inactive')
   }
 
   const [formData, setFormData] = React.useState({
     cardName: '',
     cardLink: '',
   });
+
 
   function handleInputChange(evt) {
     //Validate Form
@@ -44,8 +55,9 @@ export default function AddPlacePopup(props) {
         id="profile-name-input"
         name="cardName"
         type="text"
+        value={formData.cardName}
         className="popup__input popup__input_profile-name"
-        placeholder="Título"
+        placeholder='Título'
         required
         onChange={handleInputChange}
       />
@@ -54,8 +66,9 @@ export default function AddPlacePopup(props) {
         id="profile-link-input"
         name="cardLink"
         type="url"
+        value={formData.cardLink}
         className="popup__input popup__input_profile-link"
-        placeholder="Link da imagem"
+        placeholder='Link da Imagem'
         required
         onChange={handleInputChange}
       />
