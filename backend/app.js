@@ -5,7 +5,7 @@ const connectDatabase = require("./data/database");
 const {celebrate, Joi, errors} = require('celebrate')
 const validator = require('validator')
 const { requestLogger, errorLogger } = require('./middleware/logger')
-// const cors = require('cors')
+const cors = require('cors')
 
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
