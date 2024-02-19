@@ -17,19 +17,6 @@ app.use(bodyParser.json());
 //Add CORS middleware
 const corsMiddleware = require('./middleware/cors')
 app.use(corsMiddleware);
-// const allowedOrigins = [
-//   'http://localhost:3000',
-//   'https://localhost:3000',
-//   'https://discoverus.fairuse.org',
-//   'http://discoverus.fairuse.org',
-//   'http://www.discoverus.fairuse.org',
-//   'https://www.discoverus.fairuse.org'
-// ];
-
-// app.use(cors({
-//   origin: allowedOrigins,
-//   credentials: true
-// }));
 
 app.options('*', cors()); //make all routes available
 
