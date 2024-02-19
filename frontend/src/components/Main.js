@@ -98,7 +98,6 @@ function Main(props) {
   function handleNewCardSubmit(card) {
     newApi
       .addCard(card)
-      .then((res) => res.json())
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();

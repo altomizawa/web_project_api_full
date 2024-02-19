@@ -7,62 +7,42 @@ class Api {
     this._url = url;
   }
 
- 
+  _makeFetchRequest(url, method = 'GET', body = null) {
+    const config = {
+      method,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      },
+    }
+
+    if (body) {
+      config.body = JSON.stringify(body);
+    };
+
+    return fetch(url,config)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Erro: ${res.status}`);
+      }
+      return res.json();
+    })
+    .catch((err) => console.log(err));
+  };
+
   getUser() {
-    return fetch(`${BASE_URL}/users/me`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        return user;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return this._makeFetchRequest(`${BASE_URL}/users/me`)
   }
 
-  updateProfile(userInfo, currentUser) {
-    return fetch(`${BASE_URL}/users/${currentUser._id}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: `${userInfo.name}`,
-        about: `${userInfo.about}`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        return user;
-      })
-      .catch((err) => console.log(err));
-  }
-
+  updateProfile(userInfo, currentuser) {
+    return this._makeFetchRequest(`${BASE_URL}/users/${currentuser._id}`, 'PATCH', {
+      name: userInfo.name,
+      about: userInfo.about,
+    });
+  };
 
   updateProfilePicture(avatar, currentUser) {
-    return fetch(`${BASE_URL}/users/${currentUser._id}/avatar`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        avatar: `${avatar}`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((avatar) => {
-        return avatar;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return this._makeFetchRequest(`${BASE_URL}/users/${currentUser._id}/avatar`, 'PATCH', {avatar: avatar})
   }
 
   getCardArray() {
@@ -84,44 +64,15 @@ class Api {
   }
 
   addCard(card) {
-    return fetch(`${BASE_URL}/cards`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: card.cardName,
-        link: card.cardLink,
-      }),
-    }).catch((err) => {
-      console.log(err);
-    });
+    return this._makeFetchRequest(`${BASE_URL}/cards`, 'POST', {name: card.cardName, link: card.cardLink})
   }
 
   removeCard(cardId) {
-    return fetch(`${BASE_URL}/cards/${cardId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    return this._makeFetchRequest(`${BASE_URL}/cards/${cardId}`, 'DELETE')
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    return fetch(`${BASE_URL}/cards/${cardId}/likes`, {
-      method: !isLiked ? 'PUT' : 'DELETE',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then(newCard => newCard)
-      .catch((err) => {
-        console.log(err);
-      });
+    return this._makeFetchRequest(`${BASE_URL}/cards/${cardId}/likes`, `${isLiked ? 'DELETE' : 'PUT'}`)
   }
 }
 
