@@ -1,13 +1,16 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+//import http status and response messages
+const {HttpStatus, HttpResponseMessage} = require('../enums/http');
+
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   const secretKey = process.env.JWT_SECRET;
 
   //Check if there's an authorization
   if (!authorization || !authorization.startsWith("Bearer ")) {
-    return res.status(403).send({ message: "Authorization required" });
+    return res.status(HttpStatus.FORBIDDEN).send(HttpResponseMessage.FORBIDDEN);
   }
   //Authorization ok, clean up token by removing 'Bearer'
   const token = authorization.replace("Bearer ", "");
@@ -18,7 +21,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, secretKey);
   } catch (err) {
-    return res.status(403).send({ message: "Authorization required" });
+    return res.status(HttpStatus.FORBIDDEN).send(HttpResponseMessage.FORBIDDEN);
   }
 
   //Set payload to req.user

@@ -6,6 +6,8 @@ const NotFoundError = require("../errors/not-found-error");
 const AuthError = require('../errors/auth-error');
 const requestError = require('../errors/request-error')
 
+//import http status and response messages
+const {HttpStatus, HttpResponseMessage} = require('../enums/http');
 
 const User = require("../models/user");
 const { restart } = require("nodemon");
@@ -26,7 +28,6 @@ module.exports.login = (req, res, next) => {
     })
     .catch((err) => {
       next(new AuthError(err.message))
-      //res.status(401).send({ message: err.message });
     });
 };
 
@@ -54,7 +55,7 @@ module.exports.getProfile = (req, res) => {
 module.exports.getAllUsers = (req, res) => {
   User.find()
     .then((users) => res.send({ data: users }))
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
 };
 
 //-----------GET USER BY ID---------------
@@ -66,7 +67,7 @@ module.exports.getUser = (req, res) => {
       }
       res.send(user);
     })
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
 };
 
 //------------CREATE USER----------------
@@ -78,7 +79,7 @@ module.exports.createUser = (req, res) => {
       .then((user) => {
         res.send({ data: user });
       })
-      .catch((err) => res.status(500).send({ message: "Error" }));
+      .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
   });
 };
 
@@ -86,11 +87,11 @@ module.exports.createUser = (req, res) => {
 module.exports.deleteUser = (req, res) => {
   //Check if current user (req.user._id) matches target user
   if (req.user._id !== req.params.id) {
-    return res.status(401).send({ message: "Unauthorized action" });
+    return res.status(HttpStatus.UNAUTHORIZED).send({ message: HttpResponseMessage.UNAUTHORIZED });
   }
   User.findByIdAndRemove(req.params.id)
     .then((user) => res.send({ data: user }))
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
 };
 
 //-------------UPDATE USER--------------
@@ -98,7 +99,7 @@ module.exports.updateUser = (req, res) => {
   const { name, about } = req.body;
   User.findByIdAndUpdate(req.params.id, { name, about }, { new: true })
     .then((user) => res.send(user))
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
 };
 
 //-------------UPDATE AVATAR--------------
@@ -110,7 +111,7 @@ module.exports.updateAvatar = (req, res) => {
     })
     .catch((err) => {
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" });
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR });
     });
 };

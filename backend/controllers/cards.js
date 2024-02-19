@@ -1,13 +1,16 @@
 const router = require("express").Router();
 const Card = require("../models/card");
 
+//import http status and response messages
+const {HttpStatus, HttpResponseMessage} = require('../enums/http');
+
 
 //-----------GET ALL CARDS---------------
 module.exports.getAllCards = (req, res) => {
   Card.find()
     .sort({ createdAt: -1 })
     .then((cards) => res.send(cards))
-    .catch((err) => res.status(500).send({ message: "Error" }));
+    .catch((err) => res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR }));
 };
 
 
@@ -25,7 +28,7 @@ module.exports.createCard = (req, res) => {
       if (err.name === "ValidationError") {
         res.status(ERROR_CODE).send({ message: "Invalid data input" });
       } else {
-        res.status(500).send({ message: "Error" });
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ message: HttpResponseMessage.INTERNAL_SERVER_ERROR });
       }
     });
 };
@@ -37,8 +40,8 @@ module.exports.getCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) =>
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" })
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR })
     );
 };
 
@@ -49,8 +52,8 @@ module.exports.deleteCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) =>
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" })
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR })
     );
 };
 
@@ -62,8 +65,8 @@ module.exports.updateCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" });
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR });
     });
 };
 
@@ -77,8 +80,8 @@ module.exports.likeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" });
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR });
     });
 };
 
@@ -92,7 +95,7 @@ module.exports.dislikeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       res
-        .status(err.statusCode || 500)
-        .send({ message: err.message || "Error" });
+        .status(err.statusCode || HttpStatus.INTERNAL_SERVER_ERROR)
+        .send({ message: err.message || HttpResponseMessage.INTERNAL_SERVER_ERROR });
     });
 };

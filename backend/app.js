@@ -7,6 +7,9 @@ const validator = require('validator')
 const { requestLogger, errorLogger } = require('./middleware/logger')
 const cors = require('cors')
 
+//import Object Freeze http
+const {HttpStatus, HttpResponseMessage} = require('./enums/http')
+
 const { PORT = 4000, BASE_PATH } = process.env;
 require("dotenv").config();
 
@@ -43,10 +46,6 @@ const signupValidation = celebrate({
 app.use(requestLogger);
 
 app.use("/users", auth, userRouter);
-
-//LINE BELOW NOT WORKING WHEN CLICKIN LIKE BUTTON BECAUSE OF CREATECARDvALIDATION. FIND ERROR
-//POSSIBLY BECAUSE IT'S ASKING FOR VALIDATION IN EVERY REQUEST, INSTEAD OF JUST WHEN CREATING CARD
-// app.use("/cards", auth, createCardValidation, cardRouter);
 app.use("/cards", auth, cardRouter);
 
 app.get("/", (req, res) => {
@@ -65,7 +64,7 @@ app.post("/signup", signupValidation, createUser);
 
 // Middleware to handle invalid routes
 app.use((req, res, next) => {
-  res.status(404).send("Error: Page not found");
+  return res.status(HttpStatus.NOT_FOUND).send(HttpResponseMessage.NOT_FOUND);
 });
 
 //ERROR LOGGER MIDDLEWARE
