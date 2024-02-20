@@ -1,34 +1,42 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import PopupWithForm from './PopupWithForm';
 
 export default function EditProfilePopup(props) {
   const avatarRef = React.useRef();
 
-  const [formData, setFormData] = React.useState({
-    name: '',
-    about: '',
-    avatar: '',
-  });
+  const [avatar, setAvatar] = useState('');
+  const[avatarError, setAvatarError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  function handleInputChange(evt) {
-    //Validate Form
-    const button = evt.target.parentElement.querySelector('button');
-    const isInputValid = evt.target.value.length > 7;
-    isInputValid
-      ? button.classList.remove('popup__submit-button_inactive')
-      : button.classList.add('popup__submit-button_inactive');
+  useEffect(() => {
+    validateFields();
+  }, [avatar])
 
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }
+  const validateFields = () => {
+    setAvatarError('');
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    props.onUpdateAvatar(avatarRef.current.value);
-    avatarRef.current.value = '';
+    if (avatar.length <= 5) {
+      if(avatar.length>0) setAvatarError('O link deve ter pelo menos 5 caracteres');
+      setIsFormValid(false)
+    } else { 
+      setAvatarError('');
+      setIsFormValid(true);
+    }
+  };
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    //check if link input is URL
+    const https = 'https://';
+    avatar.startsWith(https)
+      ? props.onUpdateAvatar({avatar})
+      : props.onClose();
+
+      //Reset form value
+      setAvatar('');
+
+      //Make Submit Button inactive
+      setIsFormValid(false)
   }
 
   return (
@@ -39,6 +47,7 @@ export default function EditProfilePopup(props) {
       onSubmit={handleSubmit}
       isOpen={props.isOpen}
       onClose={props.onClose}
+      isValid={isFormValid}
     >
       <input
         id="profile-link-input"
@@ -47,10 +56,12 @@ export default function EditProfilePopup(props) {
         className="popup__input popup__input_profile-link"
         placeholder="Link da imagem"
         required
-        onChange={handleInputChange}
-        ref={avatarRef}
+        value={avatar}
+        onChange={(e)=>{setAvatar(e.target.value)}}
+        // ref={avatarRef}
       />
-      <span
+      {avatarError && <p style={{color: 'red', fontSize: '1rem'}}>{avatarError}</p>}
+            <span
         className="popup__input-error card-link-input-error"
         id="profile-link-input--error"
       />

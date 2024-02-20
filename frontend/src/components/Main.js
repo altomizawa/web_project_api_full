@@ -80,6 +80,7 @@ function Main(props) {
 
   // ------------------Update Avatar Function-------------------------
   const handleAvatarSubmit = (avatar) => {
+    console.log(avatar)
     newApi.updateProfilePicture(avatar, currentUser).then((avatar) => {
       setCurrentUser(avatar);
       closeAllPopups();

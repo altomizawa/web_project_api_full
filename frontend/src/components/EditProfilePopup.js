@@ -1,56 +1,53 @@
-import React from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import PopupWithForm from './PopupWithForm';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function EditProfilePopup(props) {
-  const [name, setName] = React.useState('');
-  const [about, setAbout] = React.useState('');
-  const currentUser = React.useContext(CurrentUserContext);
+  const [name, setName] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [about, setAbout] = useState('');
+  const [aboutError, setAboutError] = useState('');
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  //ADD USER DATA TO PROFILE POPUP
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setAbout(currentUser.about);
-  }, [currentUser]);
+  const currentUser = useContext(CurrentUserContext);
 
-  const [formData, setFormData] = React.useState({
-    name: '',
-    about: '',
-    avatar: '',
-  });
+  //FETCH INITIAL USER DATA TO PROFILE POPUP
+  useEffect(() => {
+    setName('');
+    setAbout('');
+  }, [currentUser, setName, setAbout]);
 
-  function handleInputChange(evt) {
-    //Validate From
-    const button = evt.target.parentElement.querySelector('button');
-    const isInputValid = evt.target.value.length > 3;
-    isInputValid
-      ? button.classList.remove('popup__submit-button_inactive')
-      : button.classList.add('popup__submit-button_inactive');
+  //VALIDATE FIELDS WHENEVER NAME OR ABOUT CHANGES
+  useEffect(() => {
+    validateFields();
+  }, [name, about])
+  
+  //validate fields function
+  const validateFields = () => {
+    setNameError('');
+    setAboutError('');
 
-    const { name, value } = evt.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }
+    if (name.length>0 && name.length < 3) {
+      setNameError('O nome deve ter pelo menos 3 caracteres')
+    }
+
+    if (about.length>0 && about.length <5) {
+      setAboutError('A descrição deve ter pelo menos 5 caracteres')
+    }
+    if (name.length > 2 && about.length > 4) {
+      setIsFormValid(true)
+    } else {setIsFormValid(false)}
+  };
 
   function handleSubmit(e) {
+    //prevent default submit action
     e.preventDefault();
-    const popup = e.target.parentElement;
-    const nameValue = e.target.querySelector('[name="name"]').value;
-    const aboutValue = e.target.querySelector('[name="about"]').value;
-    if ((nameValue === '') | (aboutValue === '')) {
-      popup.classList.add('popup__card_error');
-      return setTimeout(() => {
-        popup.classList.remove('popup__card_error');
-      }, 1000);
-    }
-    props.onUpdateUser(formData);
+    
+    //update profile
+    props.onUpdateUser({name, about});
 
-    //disable button
-    const button = e.target.querySelector('button')
-    button.classList.add('popup__submit-button_inactive')
-    console.log(button)
+    //finally, disable button
+    setIsFormValid(false)
   }
 
   return (
@@ -61,26 +58,29 @@ export default function EditProfilePopup(props) {
       onSubmit={handleSubmit}
       isOpen={props.isOpen}
       onClose={props.onClose}
+      isValid={isFormValid}
     >
       <input
         id="profile-name-input"
         name="name"
         type="text"
         className="popup__input popup__input_profile-name"
-        placeholder={name}
+        placeholder='Jacques Cousteau'
         required
-        onChange={handleInputChange}
+        onChange={(e)=>{setName(e.target.value)}}
       />
+      {nameError && <p style={{color: 'red', fontSize: '1rem'}}>{nameError}</p>}
 
       <input
         id="profile-profession-input"
         name="about"
         type="text"
         className="popup__input popup__input_profile-profession"
-        placeholder={about}
+        placeholder='Explorador'
         required
-        onChange={handleInputChange}
+        onChange={(e)=>{setAbout(e.target.value)}}
       />
+        {aboutError && <p style={{color: 'red', fontSize: '1rem'}}>{aboutError}</p>}
 
       <span
         className="popup__input-error card-link-input-error"

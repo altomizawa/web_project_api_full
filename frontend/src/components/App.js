@@ -19,7 +19,6 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState('');
   const [token, setToken] = useState(localStorage.getItem('token'))
-  //const token = localStorage.getItem('token')
 
 //Check for previous authorization on app start (token)
 useEffect(() => {

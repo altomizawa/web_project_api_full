@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as auth from '../utils/auth';
 
 import InfoToolTip from './InfoTooltip';
 
 function Login(props) {
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordError, setPassworderror] = useState('');
+
+  //---------HANDLE POPUP ACTIVE-----------
+  const [isPopupActive, setIsPopupActive] = useState(false);
+
+  //---------SET TEXT INSIDE POPUP----------
+  const [registrationStatus, setRegistrationStatus] = useState('');
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   function showPassword() {
     setIsPasswordVisible(!isPasswordVisible);
@@ -14,28 +25,25 @@ function Login(props) {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    confirmPassword: '',
   });
-
-  //---------HANDLE FORM INPUT CHANGE-----------
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
 
   //---------HANDLE FORM SUBMISSION-----------
   function handleFormSubmit(e) {
+    //prevent Default submit action
     e.preventDefault();
-    if (!formData.email || !formData.password) {
+    
+    //check if fields are empty
+    if (!email || !password) {
       setRegistrationStatus('error');
       return setIsPopupActive(true);
     }
+    //Check authorization
     auth
-      .authorize(formData)
+      .authorize({email, password})
       .then((data) => {
         if (data.token) {
-          localStorage.setItem('token', data.token)
-          props.handleLogin();
+          localStorage.setItem('token', data.token) //store token in localStorage
+          props.handleLogin(); //Login
         }
       })
       .catch((err) => {
@@ -43,12 +51,6 @@ function Login(props) {
         return setIsPopupActive(true);
       });
   }
-
-  //---------HANDLE POPUP ACTIVE-----------
-  const [isPopupActive, setIsPopupActive] = useState(false);
-
-  //---------SET TEXT INSIDE POPUP----------
-  const [registrationStatus, setRegistrationStatus] = useState('');
 
   return (
     <>
@@ -62,13 +64,14 @@ function Login(props) {
           <h1>Entrar</h1>
           <input
             name="email"
-            onChange={handleChange}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="E-mail"
             type="email"
+            value={email}
           ></input>
           <input
             name="password"
-            onChange={handleChange}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Senha"
             type={isPasswordVisible ? 'string' : 'password'}
             autoComplete={formData.password}

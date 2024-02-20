@@ -2,6 +2,8 @@ import {
   BASE_URL,
 } from '../components/constants';
 
+
+
 class Api {
   constructor(url = BASE_URL) {
     this._url = url;
@@ -42,7 +44,7 @@ class Api {
   };
 
   updateProfilePicture(avatar, currentUser) {
-    return this._makeFetchRequest(`${BASE_URL}/users/${currentUser._id}/avatar`, 'PATCH', {avatar: avatar})
+    return this._makeFetchRequest(`${BASE_URL}/users/${currentUser._id}/avatar`, 'PATCH', {avatar: avatar.avatar})
   }
 
   getCardArray() {

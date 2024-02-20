@@ -22,6 +22,7 @@ export const register = ({ password, email }) => {
     });
 };
 
+
 export const authorize = ({email, password}) => { 
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
@@ -37,12 +38,7 @@ export const authorize = ({email, password}) => {
       } else if (response.status === 401) {
         throw new Error('401 - User not found in Database');
       }
-      return response.json().then((data) => {
-        if (data.token) {
-          localStorage.setItem('token', data.token);
-          return data;
-        }
-      });
+      return response.json();
     })
     .catch((err) => console.log(err));
 };

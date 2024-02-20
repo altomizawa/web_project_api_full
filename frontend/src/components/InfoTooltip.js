@@ -11,11 +11,7 @@ function InfoToolTip({ isPopupActive, setIsPopupActive, registrationStatus }) {
     if (registrationStatus === 'success') {
       navigate('/login');
     } else return;
-  }
-
-  //---------------SET TEXT INSIDE POPUP ----------------------
-  const successMessage = `Success! Please Sign In Now.`;
-  const errorMessage = `Something went wrong. Please try again`;
+  };
 
   //--------------SET ICON INSIDE POPUP --------------------
   const popupIconSuccess = (
@@ -54,7 +50,7 @@ function InfoToolTip({ isPopupActive, setIsPopupActive, registrationStatus }) {
         </div>
 
         <h2 className="infotooltip__text">
-          {registrationStatus === 'success' ? successMessage : errorMessage}
+          {registrationStatus === 'success' ? 'Success! Please Sign In Now.' : 'Something went wrong. Please try again'}
         </h2>
       </div>
     </div>
