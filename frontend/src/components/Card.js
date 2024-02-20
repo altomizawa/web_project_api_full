@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import trashCanActive from '../images/trashCan.svg';
 import trashCanInactive from '../images/trashCan_grey.svg';
 import heartActive from '../images/heart_active.svg';
 import heart from '../images/heart.svg';
+import BigImagePopup from './BigImagePopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export default function Card(props) {
+  // ---------------Is Card Popup Open-----------------
+  
 
   // ------------------Context-------------------------
   const currentUser = useContext(CurrentUserContext);
@@ -43,7 +46,9 @@ export default function Card(props) {
           src={props.link}
           alt={props.name}
           className="card__image"
-          onClick={() => props.onCardClick(props.card)}
+          onClick={() => {
+            props.setIsBigImageOpen(true);
+            props.setBigImageData({name: props.name, link: props.link})}}
         />
         <div className="card__description-wrapper">
           <h4 className="card__title">{props.name}</h4>

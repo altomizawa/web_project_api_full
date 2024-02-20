@@ -1,54 +1,44 @@
-import React from 'react';
+import React, {useState, useEffect}from 'react';
 import newApi from '../utils/api';
 
 import PencilButton from '../images/Pencil.svg';
 import AddButton from '../images/Plus-sign.svg';
 import Card from './Card';
 
-import ImagePopup from './ImagePopup';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup';
-import AddPlacePopup from './AddPlacePopup';
+import EditAvatar from './EditAvatar';
+import EditProfile from './EditProfile';
+import AddPlace from './AddPlace';
+import BigImagePopup from './BigImagePopup';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
   // ------------------Set Cards Array-------------------------
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
+  const [isAvatarPopupOpen, setIsAvatarPopupOpen] = useState(false);
+  const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
+  const [isAddPlaceOpen, setIsAddPlaceOpen] = useState(false)
+  const [isBigImageOpen, setIsBigImageOpen] = useState(false);
+  const [bigImageData, setBigImageData]= useState({name: '', link: ''})
+  const [currentUser, setCurrentUser] = useState({});
+
   const authorization = localStorage.getItem('token')
-  React.useEffect(() => {
+
+  //Fetch all Cards and set Them
+  useEffect(() => {
     newApi.getCardArray().then((cards) => {
       setCards(cards);
     });
   }, []);
 
-  // ------------------Event Handlers-------------------------
-
-  const handleEditAvatarClick = () => {
-    setIsEditAvatarPopupOpen((prevState) => !prevState);
-  };
-
-  const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen((prevState) => !prevState);
-  };
-
-  const handleAddPlaceClick = () => {
-    setIsAddPlacePopupOpen((prevState) => !prevState);
-  };
-
-  const handleCardClick = (card) => {
-    setSelectedCard(card);
-    setIsImagePopupOpen((prevState) => !prevState);
-  };
-
   //------------------Set User Data-------------------------
-  const [currentUser, setCurrentUser] = React.useState({});
-  React.useEffect(() => {
+  useEffect(() => {
     newApi.getUser(authorization).then((user) => {
       setCurrentUser(user);
     });
   }, []);
+
   const { name, about, avatar } = currentUser;
   
 
@@ -58,32 +48,19 @@ function Main(props) {
       key={i}
       {...card}
       card={card}
-      onCardClick={handleCardClick}
+      setIsBigImageOpen={setIsBigImageOpen}
+      isBigImageOpen={isBigImageOpen}
+      setBigImageData={setBigImageData}
       handleCardDelete={handleCardDelete}
-      selectedCard={props.selectedCard}
       onCardLike={handleCardLike}
     />
   ));
 
-  // ------------------Variables-------------------------
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-
-  const [selectedCard, setSelectedCard] = React.useState(null);
 
   // ------------------Update Avatar Function-------------------------
   const handleAvatarSubmit = (avatar) => {
-    console.log(avatar)
     newApi.updateProfilePicture(avatar, currentUser).then((avatar) => {
       setCurrentUser(avatar);
-      closeAllPopups();
     });
   };
 
@@ -91,7 +68,6 @@ function Main(props) {
   const handleUpdateUser = (user) => {
     newApi.updateProfile(user, currentUser).then((user) => {
       setCurrentUser(user);
-      closeAllPopups();
     });
   };
 
@@ -101,7 +77,6 @@ function Main(props) {
       .addCard(card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        closeAllPopups();
       })
       .catch((err) => console.log(err));
   }
@@ -124,24 +99,19 @@ function Main(props) {
     })
   }
 
-  // ------------------Functions-------------------------
-
-  const closeAllPopups = () => {
-    setIsEditAvatarPopupOpen(false);
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsImagePopupOpen(false);
-  };
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <main>
+        {isAvatarPopupOpen && <EditAvatar setIsAvatarPopupOpen={setIsAvatarPopupOpen} onUpdateAvatar={handleAvatarSubmit} />}
+        {isProfilePopupOpen && <EditProfile setIsProfilePopupOpen={setIsProfilePopupOpen} onUpdateUser={handleUpdateUser} />}
+        {isAddPlaceOpen && <AddPlace setIsAddPlaceOpen={setIsAddPlaceOpen} onAddPlaceSubmit={handleNewCardSubmit} />}
+        {isBigImageOpen && <BigImagePopup name={bigImageData.name} link={bigImageData.link} setIsBigImageOpen={setIsBigImageOpen} />}
         {/* <!-- ------------------------PROFILE INFO------------------------------ --> */}
         <div className="profile">
           <div className="profile__info">
             <div
               className="profile__picture-wrapper"
-              onClick={handleEditAvatarClick}
+              onClick={()=>{setIsAvatarPopupOpen(true)}}
             >
               <div className="profile__picture-overlay">
                 <img
@@ -156,7 +126,7 @@ function Main(props) {
               <div className="profile__name-wrapper">
                 <h1 className="profile__name">{name}</h1>
                 <button
-                  onClick={handleEditProfileClick}
+                  onClick={() => {setIsProfilePopupOpen(true)}}
                   className="profile__edit"
                 >
                   <img src={PencilButton} alt="ilustração de um lápis" />
@@ -167,7 +137,8 @@ function Main(props) {
           </div>
           {/* -- ------------------------ADD NEW CARD BUTTON------------------------------ --> */}{' '}
           */}
-          <button className="adicionar-button" onClick={handleAddPlaceClick}>
+          <button className="adicionar-button" onClick={()=>{
+            setIsAddPlaceOpen(true)}}>
             <img
               src={AddButton}
               alt="sinal de mais para adicionar imagem"
@@ -177,30 +148,6 @@ function Main(props) {
         </div>
         {/* -- ------------------------RENDER CARD LIST------------------------------ --> */}{' '}
         <ul className="cards">{cardsData}</ul>
-        {/* <!-- ------------------------PROFILE AVATAR FORM------------------------------ --> */}
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleAvatarSubmit}
-        />
-        {/* ----------------------------PROFILE FORM-------------------------------- */}
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-        {/* <!-- ------------------------NEW CARD FORM------------------------------ --> */}
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlaceSubmit={handleNewCardSubmit}
-        />
-        {/* ----------------------------IMAGE POPUP-------------------------------- */}
-        <ImagePopup
-          card={selectedCard}
-          onClose={closeAllPopups}
-          isImagePopupOpen={isImagePopupOpen}
-        />
       </main>
     </CurrentUserContext.Provider>
   );
