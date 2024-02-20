@@ -18,10 +18,11 @@ const app = express();
 app.use(bodyParser.json());
 
 //Add CORS middleware
-const corsMiddleware = require('./middleware/cors')
-app.use(corsMiddleware);
+// const corsMiddleware = require('./middleware/cors')
+// app.use(corsMiddleware);
 
-app.options('*', cors()); //make all routes available
+// app.options('*', cors()); //make all routes available
+app.use(cors())
 
 connectDatabase();
 
@@ -64,7 +65,7 @@ app.post("/signup", signupValidation, createUser);
 
 // Middleware to handle invalid routes
 app.use((req, res, next) => {
-  return res.status(HttpStatus.NOT_FOUND).send(HttpResponseMessage.NOT_FOUND);
+  return res.status(HttpStatus.NOT_FOUND).send(HttpResponseMessage.N);
 });
 
 //ERROR LOGGER MIDDLEWARE
