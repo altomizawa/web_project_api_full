@@ -23,22 +23,9 @@ app.use(bodyParser.json());
 
 // app.options('*', cors()); //make all routes available
 
-const allowedCors = [
-  'http://localhost:3000',
-  'https://localhost:3000',
-  'https://discoverus.fairuse.org',
-  'http://discoverus.fairuse.org',
-  'http://www.discoverus.fairuse.org',
-  'https://www.discoverus.fairuse.org'
-];
+app.use(cors());
 
-app.use(function(req, res, next){
-  const {origin} = req.headers;
-
-  if(allowedCors.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-  }
-})
+app.options('*', cors());
 
 connectDatabase();
 
