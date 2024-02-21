@@ -15,7 +15,7 @@ require("dotenv").config();
 
 const app = express();
 
-app.use(bodyParser.json());
+
 
 // //Add CORS middleware
 // const corsMiddleware = require('./middleware/cors')
@@ -26,6 +26,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.options('*', cors());
+
+app.use(bodyParser.json());
 
 connectDatabase();
 
