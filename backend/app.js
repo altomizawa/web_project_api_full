@@ -17,11 +17,28 @@ const app = express();
 
 app.use(bodyParser.json());
 
-//Add CORS middleware
-const corsMiddleware = require('./middleware/cors')
-app.use(corsMiddleware);
+// //Add CORS middleware
+// const corsMiddleware = require('./middleware/cors')
+// app.use(corsMiddleware);
 
-app.options('*', cors()); //make all routes available
+// app.options('*', cors()); //make all routes available
+
+const allowedCors = [
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'https://discoverus.fairuse.org',
+  'http://discoverus.fairuse.org',
+  'http://www.discoverus.fairuse.org',
+  'https://www.discoverus.fairuse.org'
+];
+
+app.use(function(req, res, next){
+  const {origin} = req.headers;
+
+  if(allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin)
+  }
+})
 
 connectDatabase();
 
