@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-app.options('*', cors());
+//app.options('*', cors());
 
 connectDatabase();
 
