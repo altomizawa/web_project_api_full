@@ -24,8 +24,7 @@ app.use(bodyParser.json());
 // app.options('*', cors()); //make all routes available
 
 app.use(cors());
-
-//app.options('*', cors());
+app.options('*', cors());
 
 connectDatabase();
 
