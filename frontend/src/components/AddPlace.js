@@ -109,7 +109,7 @@ export default function AddPlace(props){
           className={`popup__submit-button ${!isFormValid ? 'popup__submit-button_inactive' : ''}`}
           type="submit"
         >
-          Alterar
+          Criar
         </button>
       </form>
     </div>
