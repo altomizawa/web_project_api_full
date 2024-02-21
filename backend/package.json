@@ -14,7 +14,8 @@
     "express-winston": "^4.2.0",
     "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.3"
+    "mongoose": "^7.5.3",
+    "validator": "^13.11.0"
   },
   "scripts": {
     "start": "node app.js",
