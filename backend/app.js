@@ -18,13 +18,13 @@ const app = express();
 app.use(bodyParser.json());
 
 // //Add CORS middleware
-const corsMiddleware = require('./middleware/cors')
-app.use(corsMiddleware);
+// const corsMiddleware = require('./middleware/cors')
+// app.use(corsMiddleware);
 
-app.options('*', cors()); //make all routes available
+// app.options('*', cors()); //make all routes available
 
-// app.use(cors());
-// app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 connectDatabase();
 
