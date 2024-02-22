@@ -14,7 +14,8 @@ class Api {
       method,
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://www.discoverus.fairuse.org',
       },
     }
 
