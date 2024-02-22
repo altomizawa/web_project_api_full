@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 // app.use(corsMiddleware);
 
 app.use(cors());
-// app.options('*', cors()); //make all routes available
+app.options('*', cors()); //make all routes available
 
 // app.use(cors());
 // app.options('*', cors());
