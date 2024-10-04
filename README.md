@@ -1,6 +1,6 @@
 # Tripleten web_project_api_full
 
-This project is a share photos app created for the last Sprint of the Web Developer course offered by Triple Ten.
+This project is a photo sharing app created for the last Sprint of the Web Developer course offered by Triple Ten.
 
 This website lets people add and delete a picture card to/from their database. The user can also change their profile info and avatar, by fetching from the server.
 
